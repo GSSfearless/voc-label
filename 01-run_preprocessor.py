@@ -40,20 +40,20 @@ async def main():
         convert_fullwidth=True,     # 全角转半角
         detect_language=False,       # 检测语言（可选）
         split_sentences=True,      # 分句处理（可选）
-        max_length=5000,          # 最大文本长度
+        max_length=10000,          # 最大文本长度
         min_length=3,              # 最小文本长度
     )
     
     # 2. 数据处理配置
     process_config = ProcessConfig(
         # 📁 文件路径配置
-        input_csv="data/raw/九号打标数据-0609.csv",              # 输入CSV文件路径
-        output_csv="data/processed/九号打标数据-0609_cleaned.csv",     # 输出CSV文件路径
+        input_csv="data/raw/境外汇总_20250609.csv",              # 输入CSV文件路径
+        output_csv="data/processed/境外汇总_20250609_cleaned.csv",     # 输出CSV文件路径
         
         # 📊 数据列配置
         text_column="正文",       # 待处理的文本列名
-        author_column=None,         # 作者列名（如果有的话）
-        id_column="序号",             # ID列名（如果有的话）
+        author_column="作者",         # 作者列名（如果有的话）
+        id_column="ID",             # ID列名（如果有的话）
         
         # 🎯 数据筛选配置
         max_rows=None,              # 最大处理行数（None表示处理全部）

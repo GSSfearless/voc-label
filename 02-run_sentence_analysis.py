@@ -16,12 +16,12 @@ def main():
     # ========== 配置区域 ==========
     
     # 📁 输入文件配置
-    input_file = "data/processed/九号打标数据-0609_cleaned.csv"  # 预处理结果文件
+    input_file = "data/processed/境外汇总_20250609_cleaned.csv"  # 预处理结果文件
     
     # 📁 输出文件配置
-    output_sentences = "data/processed/九号打标数据-0609_sentences.csv"      # 句子表
-    output_summary = "data/processed/九号打标数据-0609_sentence_report.md"   # 分析报告
-    output_samples = "data/processed/九号打标数据-0609_sentence_samples.csv" # 句子样本
+    output_sentences = "data/processed/境外汇总_20250609_sentences.csv"      # 句子表
+    output_summary = "data/processed/境外汇总_20250609_sentence_report.md"   # 分析报告
+    output_samples = "data/processed/境外汇总_20250609_sentence_samples.csv" # 句子样本
     
     # 🎯 分析配置
     sample_size = 50  # 样本数量

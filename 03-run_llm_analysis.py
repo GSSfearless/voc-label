@@ -37,7 +37,12 @@
 
 import asyncio
 import logging
+import os
+from dotenv import load_dotenv
 from batch_llm_api import APIConfig, ProcessConfig, LLMBatchProcessor
+
+# 加载环境变量
+load_dotenv()
 
 # 设置为INFO级别，避免过多调试信息
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -45,11 +50,15 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 async def main():
     # ========== 配置区域 ==========
     
-    # 1. API配置 - 请修改为您的实际配置
+    # 1. API配置 - 从环境变量读取API密钥
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        raise ValueError("请设置环境变量 OPENROUTER_API_KEY，或在.env文件中配置")
+    
     api_config = APIConfig(
-        api_key="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",  # 🔑 替换为您的API密钥
+        api_key=api_key,  # 🔑 从环境变量读取API密钥
         model="google/gemini-2.5-flash-preview-05-20",                   # 🤖 可选的模型
-        max_concurrent=30,                        # 🚀 并发数（建议先用小值测试）
+        max_concurrent=60,                        # 🚀 并发数（建议先用小值测试）
         timeout=60,                              # ⏰ 超时时间
         retry_attempts=1,                        # 🔄 重试次数
         system_prompt="""你是一个电动车行业分类专家，你遵循给定的层级标签体系进行文本分类，如果无法判断，请返回其他。
@@ -105,9 +114,12 @@ async def main():
 疑似危机#疑似危机#摔车客诉#四肢骨折等对于人身健康有重大的损坏
 营销#营销活动#新品发布#新品发布
 
-本品九号电动车的车型包括：M95C、Mz MIX
+本品品牌常见为9号/Segway，车型常见为ZT3 Pro、Max G2
 
-常见竞品品牌包括：小牛（NX、Nplay）、极核（Ae4、AE5i）
+常见竞品品牌包括：Navee（S65C）
+小米/xiaomi（4 Pro Max）
+Kaabo （Mantis 10）
+Dualtron（Mini）
         """,  # 🎭 系统提示词
         # 💾 缓存配置 - 节省API调用成本
         enable_cache=True,                       # 🔧 启用缓存功能
@@ -117,8 +129,8 @@ async def main():
     
     # 2. 处理配置
     process_config = ProcessConfig(
-        input_csv="data/processed/九号打标数据-0609_sentences.csv",               # 📁 输入文件
-        output_csv="data/results/九号打标数据-0609-cleaned-sentences-results.csv",                # 📁 输出文件
+        input_csv="data/processed/境外汇总_20250609_sentences.csv",               # 📁 输入文件
+        output_csv="data/results/境外汇总_20250609-cleaned-sentences-results.csv",                # 📁 输出文件
         input_column="sentence_text",                     # 📝 要处理的列名
         
         # 📋 Prompt模板 - 根据您的需求修改
@@ -180,7 +192,7 @@ async def main():
         filter_condition="in",  # 📍 筛选条件：'in'包含, 'not_in'不包含, 'equals'等于, 'not_equals'不等于
         
         jsonl_file="llm_results_progress.jsonl",  # 📝 阶段性保存的jsonl文件
-        batch_size=30  # 🔄 每30行保存一次
+        batch_size=60  # 🔄 每30行保存一次
     )
     
     # ========== 执行处理 ==========
