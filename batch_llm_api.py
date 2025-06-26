@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class APIConfig:
     """API配置类"""
-    base_url: str = "https://openrouter.ai/api/v1"
+    base_url: str = "https://api.siliconflow.cn/v1/"
     api_key: str = ""
     model: str = "openai/gpt-4o"
     max_concurrent: int = 10

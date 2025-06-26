@@ -47,12 +47,12 @@ async def main():
     # 2. 数据处理配置
     process_config = ProcessConfig(
         # 📁 文件路径配置
-        input_csv="data/raw/境外汇总_20250609.csv",              # 输入CSV文件路径
-        output_csv="data/processed/境外汇总_20250609_cleaned.csv",     # 输出CSV文件路径
+        input_csv="/Users/hanzhang/Projects/上汽大众/NSR计算/data/0407.csv",              # 输入CSV文件路径
+        output_csv="/Users/hanzhang/Projects/上汽大众/NSR计算/data/0407-cleaned.csv",     # 输出CSV文件路径
         
         # 📊 数据列配置
-        text_column="正文",       # 待处理的文本列名
-        author_column="作者",         # 作者列名（如果有的话）
+        text_column="CONTENT",       # 待处理的文本列名
+        author_column="AUTHOR",         # 作者列名（如果有的话）
         id_column="ID",             # ID列名（如果有的话）
         
         # 🎯 数据筛选配置
